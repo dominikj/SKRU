@@ -15,13 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SerwerHttp extends Serwer implements Runnable {
+public class SerwerHttp implements Runnable {
 	
 		private Socket remote;
-		private String documentHtml;
 		
-		SerwerHttp(Socket remote, String doc){
-			this.documentHtml = doc;
+		SerwerHttp(Socket remote){
 			this.remote = remote;
 		}
 	@Override
@@ -96,7 +94,7 @@ public class SerwerHttp extends Serwer implements Runnable {
 	 		return tmp;
 	}
 	
-	void sendPacket(String mimeType, byte[] data, boolean text, PrintWriter out){
+	      void sendPacket(String mimeType, byte[] data, boolean text, PrintWriter out){
 			out.println("HTTP/1.0 200 OK");
 	        out.println("Content-Type: " + mimeType );
 	        out.println("Server: Kutas");
