@@ -15,6 +15,7 @@ import java.util.Date;
 public class SerwerGeo implements Runnable {
 	
 	private Socket remote;
+	int test;
 	
 	SerwerGeo(Socket remote){
 		this.remote = remote;
