@@ -44,19 +44,18 @@ public class SerwerGeo implements Runnable {
 	        	tmp.add(message.get(i));
 	        }
 	        
-	        writeTofile("log.html", tmp, true);
+	        writeTofile("logi.html", tmp, true);
 	        
 	        out.println("OK");
+	        out.flush();
 	        remote.close();
 	        
 	        } catch(Exception e){
 	        	e.printStackTrace();
 	        }
-	        
-	        
 		
 	}
-	ArrayList<String> readMessage(BufferedReader buf){
+	ArrayList<String> readMessage(BufferedReader buf){ // TODO: dołożyć timeout, ale po testach
 		ArrayList<String> tmp = new ArrayList<String>();
 		 String str = ".";
 	        while (!str.equals(""))

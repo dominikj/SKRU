@@ -10,12 +10,11 @@ import java.nio.file.Paths;
 public class Serwer {
 
 	public static void main(String[] args) {
-	//TODO: Naprawić odsyłanie feedbacku, wprowadzić timeouty, zabezpieczyć przed dostępem do katalogu nadrzędnego	
 		ServerSocket serv;
 
 	    System.out.println("Uruchomiono serwer na porcie 80 i 22029");
 	    try {
-	      serv = new ServerSocket(8080);
+	      serv = new ServerSocket(80);
 	    } catch (Exception e) {
 	      System.out.println("Błąd: " + e);
 	      return;

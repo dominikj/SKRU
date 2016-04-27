@@ -4,7 +4,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -18,13 +17,13 @@ import java.util.Date;
 public class SerwerHttp implements Runnable {
 	
 		private Socket remote;
+		private final long TIMEOUT = 20; //sekund
 		
 		SerwerHttp(Socket remote){
 			this.remote = remote;
 		}
 	@Override
 	public void run() {
-		
 	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	        Date date = new Date();
 	        System.out.print("[" + dateFormat.format(date) + "]"); 
@@ -46,8 +45,11 @@ public class SerwerHttp implements Runnable {
 	    		if (tmp[1].equals("/")){
 	    			 path = Paths.get("./index.html");
 		    	}
-	    		else
+	    		else {// TODO: analiza, czy żądanie nie odnosi się do strony o ograniczonym dostępie
+	    			tmp[1] = tmp[1].replace("..", "<<>>");
 	    			 path = Paths.get("." + tmp[1]);
+	    			 
+	    		}
 	    	
 	    	String mimeType =  Files.probeContentType(path);
 	    	
@@ -79,11 +81,15 @@ public class SerwerHttp implements Runnable {
 	    }
 	
 	ArrayList<String> readHeader(BufferedReader buf){
+
 		ArrayList<String> tmp = new ArrayList<String>();
 		 String str = ".";
-	        while (!str.equals(""))
+			long absoluteTime = (System.currentTimeMillis() / 1000L) + TIMEOUT ;
+	        while (!str.equals("") && (absoluteTime > (System.currentTimeMillis() / 1000L)) )
 				try {
+					str = ".";
 					System.out.println((str = buf.readLine()));
+
 					tmp.add(str);
 					
 				} catch (IOException e) {
