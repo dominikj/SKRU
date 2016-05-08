@@ -22,11 +22,14 @@ public class OpenCellJSONAnswer {
     private String rnc;
     private String cid;
     private String psc;
-
+    private String code;
+    private String error;
     public String getLat(){
         return lat;
     }
-
+    public String getError(){
+        return error;
+    }
     public String getLon(){
         return lon;
     }
@@ -66,6 +69,9 @@ public class OpenCellJSONAnswer {
     }
     public String getPsc(){
         return psc;
+    }
+    public String getCode(){
+        return code;
     }
 
 
